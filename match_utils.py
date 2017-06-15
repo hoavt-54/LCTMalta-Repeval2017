@@ -3,6 +3,17 @@ from tensorflow import Tensor as ts
 from tensorflow.python.ops import rnn
 import my_rnn
 
+def tile_repeat(n, repTime):
+    '''
+    create something like 111..122..2333..33 ..... n..nn 
+    one particular number appears repTime consecutively 
+    '''
+    #print n, repTime
+    idx = tf.range(n)
+    idx = tf.reshape(idx, [-1, 1])    # Convert to a n x 1 matrix.
+    idx = tf.tile(idx, [1, repTime])  # Create multiple columns, each column has one number repeats repTime 
+    y = tf.reshape(idx, [-1])
+    return y
 
 def gather_along_second_axis(x, idx):
     '''
